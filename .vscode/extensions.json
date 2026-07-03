@@ -2,6 +2,7 @@
     "recommendations": [
         "eamodio.gitlens",
         "bierner.github-markdown-preview",
-        "yzhang.markdown-all-in-one"
+        "yzhang.markdown-all-in-one",
+        "rust-lang.rust-analyzer"
     ]
 }
