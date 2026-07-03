@@ -3,6 +3,7 @@
         "eamodio.gitlens",
         "bierner.github-markdown-preview",
         "yzhang.markdown-all-in-one",
-        "rust-lang.rust-analyzer"
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml"
     ]
 }
