@@ -30,6 +30,40 @@ A language agnostic CLI tool written in rust for generating semantic versions an
 <details>
 <summary>
 
+#### [Rust](https://rust-lang.org/)
+cargo 1.96.1 (356927216 2026-06-26)
+</summary>
+
+##### Installation
+```sh
+# Install rustup version management tool
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Update rust installation
+rustup update
+
+# # Show installed toolchains
+# rustup show
+
+# # Install toolchain
+# rustup toolchain install 
+
+# # Set default toolchain
+# rustup default 
+```
+
+##### Version
+```sh
+cargo --version
+```
+```sh
+cargo 1.96.1 (356927216 2026-06-26)
+```
+</details>
+
+<details>
+<summary>
+
 #### []()
 Version:
 </summary>
