@@ -1,5 +1,5 @@
 # Conventional Commits 2 Semantic Versions
-A language agnostic CLI tool written in rust for generating semantic versions and change-logs by parsing conventional commits
+A language agnostic CLI tool written in rust for generating semantic versions and change-logs by parsing conventional commits.
 
 <details open>
 <summary>
@@ -100,6 +100,7 @@ Version:
 
 ```sh
 cargo run
+cargo run -- --help
 ```
 </details>
 
