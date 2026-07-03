@@ -99,6 +99,7 @@ Version:
 </summary>
 
 ```sh
+cargo run
 ```
 </details>
 
@@ -108,6 +109,7 @@ Version:
 ### Build
 
 ```sh
+cargo build
 ```
 </summary>
 </details>
@@ -118,6 +120,7 @@ Version:
 ### Test
 
 ```sh
+cargo test
 ```
 </summary>
 </details>
