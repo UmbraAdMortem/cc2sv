@@ -1,9 +1,10 @@
 {
-    "recommendations": [
-        "eamodio.gitlens",
-        "bierner.github-markdown-preview",
-        "yzhang.markdown-all-in-one",
-        "rust-lang.rust-analyzer",
-        "tamasfe.even-better-toml"
-    ]
+	"recommendations": [
+		"eamodio.gitlens",
+		"bierner.github-markdown-preview",
+		"yzhang.markdown-all-in-one",
+		"rust-lang.rust-analyzer",
+		"tamasfe.even-better-toml",
+		"vadimcn.vscode-lldb"
+	]
 }
