@@ -29,14 +29,10 @@ struct Args {
 fn main() {
     // TODO: Refactor cli  handling
     let args = Args::parse();
+    dbg!(&args);
 
-    println!(
-        "Current dir: {}",
-        std::env::current_dir()
-            .expect("Current dir should be valid")
-            .display()
-    );
-    println!("Change dir:  {}", &args.workdir.display());
+    dbg!(&std::env::current_dir().expect("Current dir should be valid"));
+    dbg!(&args.workdir);
 
     // Exits function on error
     // std::env::set_current_dir(&args.workdir)
@@ -46,15 +42,11 @@ fn main() {
     // Continues function on error
     match std::env::set_current_dir(&args.workdir) {
         Ok(_) => {
-            println!(
-                "Changed dir: {}",
-                std::env::current_dir()
-                    .expect("Current dir should be valid")
-                    .display()
-            );
+            dbg!(&std::env::current_dir().expect("Current dir should be valid"));
         }
         Err(_) => {
-            eprintln!("Missing dir: {}", &args.workdir.display());
+            // TODO: Implement: mkdir -p and surround set_current_dir with loop
+            eprintln!("Missing dir: {:#?}", &args.workdir);
         }
     }
 
