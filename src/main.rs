@@ -1,6 +1,5 @@
 use ccsv::CCSV;
 
 fn main() {
-    let cc: CCSV = CCSV {};
-    cc.run();
+    CCSV::new(std::io::stdout()).run();
 }
