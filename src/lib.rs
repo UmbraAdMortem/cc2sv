@@ -1,12 +1,13 @@
 use std::io::Write;
 
-pub struct CCSV<W: Write> {
+pub struct CCSV<W: Write, E: Write> {
     out: W,
+    err: E,
 }
 
-impl<W: Write> CCSV<W> {
-    pub fn new(out: W) -> Self {
-        CCSV { out }
+impl<W: Write, E: Write> CCSV<W, E> {
+    pub fn new(out: W, err: E) -> Self {
+        CCSV { out, err }
     }
 
     pub fn run(&mut self) {
@@ -14,5 +15,7 @@ impl<W: Write> CCSV<W> {
             self.out,
             "Hello! \nThis is Conventional Commits 2 Sematic Verison!"
         );
+
+        let _ = writeln!(self.err, "There are no errors!");
     }
 }
