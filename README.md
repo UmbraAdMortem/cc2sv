@@ -1,5 +1,5 @@
 # Conventional Commits 2 Semantic Versions
-A language agnostic CLI tool written in rust for generating semantic versions and change-logs by parsing conventional commits
+A language agnostic CLI tool written in rust for generating semantic versions and change-logs by parsing conventional commits.
 
 <details open>
 <summary>
@@ -26,6 +26,40 @@ A language agnostic CLI tool written in rust for generating semantic versions an
 
 ### Prerequisits
 </summary>
+
+<details>
+<summary>
+
+#### [Rust](https://rust-lang.org/)
+cargo 1.96.1 (356927216 2026-06-26)
+</summary>
+
+##### Installation
+```sh
+# Install rustup version management tool
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Update rust installation
+rustup update
+
+# # Show installed toolchains
+# rustup show
+
+# # Install toolchain
+# rustup toolchain install 
+
+# # Set default toolchain
+# rustup default 
+```
+
+##### Version
+```sh
+cargo --version
+```
+```sh
+cargo 1.96.1 (356927216 2026-06-26)
+```
+</details>
 
 <details>
 <summary>
@@ -65,6 +99,8 @@ Version:
 </summary>
 
 ```sh
+cargo run
+cargo run -- --help
 ```
 </details>
 
@@ -74,6 +110,7 @@ Version:
 ### Build
 
 ```sh
+cargo build
 ```
 </summary>
 </details>
@@ -84,6 +121,7 @@ Version:
 ### Test
 
 ```sh
+cargo test
 ```
 </summary>
 </details>

@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"gitlens.ai.model": "gitkraken",
+		"gitlens.ai.gitkraken.model": "anthropic:claude-sonnet-4-5",
+		"gitlens.ai.generateCommits.customInstructions": "Generate a commit message using the Conventional Commits format. Examples: ['feat: Add new feature', 'fix: Resolve bug in login', 'chore: Update dependencies']. Reply with ONLY the commit message.",
+	}
+}
