@@ -1,24 +1,47 @@
+//! Conventional Commits to Semantic Versioning library
+//!
+//! Provides a simple interface which parses CLI arguments, calculates the current semantic version of a provided directory by analysing its converional commit history and can also generate the corresponding changelog.
+//!
+
+// #![warn(missing_docs)]
+#![deny(missing_docs)]
+
 use crate::cli::Cli;
 use anyhow::Result;
 use clap::Parser;
 
 mod cli;
 
+/// Public intervate of the `ccsv` libreary package
 pub struct CCSV {
     args: Vec<String>,
 }
 
 impl CCSV {
-    pub fn new() -> Self {
-        return CCSV::new_internal(std::env::args().collect());
-    }
-}
-
-impl CCSV {
-    fn new_internal(args: Vec<String>) -> Self {
+    /// Creates a new instance of the `CCSV` interface
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use ccsv::CCSV;
+    /// fn main() {
+    ///     CCSV::new(std::env::args().collect()).run();
+    /// }
+    /// ```
+    pub fn new(args: Vec<String>) -> Self {
         CCSV { args }
     }
 
+    /// Runs `ccsv`'s functionality according to CLI arguments and configuration
+    ///
+    /// # Examples
+    ///
+    /// ```no_run
+    /// use ccsv::CCSV;
+    /// fn main() {
+    ///     CCSV::new(std::env::args().collect()).run();
+    /// }
+    /// ```
     pub fn run(&mut self) -> Result<()> {
         // https://docs.rs/clap_builder/4.6.7/src/clap_builder/derive.rs.html#52-55
         let cli = Cli::try_parse_from(self.args.iter()).inspect_err(|e| {
@@ -47,11 +70,7 @@ mod tests {
         let stdout = BufferRedirect::stdout().unwrap();
         let stderr = BufferRedirect::stderr().unwrap();
 
-        assert!(
-            CCSV::new_internal(args(&["target/debug/ccsv"]))
-                .run()
-                .is_ok()
-        );
+        assert!(CCSV::new(args(&["target/debug/ccsv"])).run().is_ok());
 
         let out = read_drop_buffer(stdout);
         println!("out: {}", out);
@@ -68,7 +87,7 @@ mod tests {
         let stderr = BufferRedirect::stderr().unwrap();
 
         assert!(
-            CCSV::new_internal(args(&["target/debug/ccsv", "--help"]))
+            CCSV::new(args(&["target/debug/ccsv", "--help"]))
                 .run()
                 .is_err()
         );
