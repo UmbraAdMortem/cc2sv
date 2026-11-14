@@ -53,13 +53,11 @@ mod tests {
                 .is_ok()
         );
 
-        let mut out = String::new();
-        let _ = stdout.into_inner().read_to_string(&mut out);
+        let out = read_drop_buffer(stdout);
         println!("out: {}", out);
         assert!(!out.is_empty());
 
-        let mut err = String::new();
-        let _ = stderr.into_inner().read_to_string(&mut err);
+        let err = read_drop_buffer(stderr);
         println!("err: {}", err);
         assert!(!err.is_empty());
     }
@@ -75,18 +73,22 @@ mod tests {
                 .is_err()
         );
 
-        let mut out = String::new();
-        let _ = stdout.into_inner().read_to_string(&mut out);
+        let out = read_drop_buffer(stdout);
         println!("out: {}", out);
         assert!(out.starts_with("Usage:"));
 
-        let mut err = String::new();
-        let _ = stderr.into_inner().read_to_string(&mut err);
+        let err = read_drop_buffer(stderr);
         println!("err: {}", err);
         assert!(!err.is_empty());
     }
 
     fn args(args: &[&str]) -> Vec<String> {
         args.iter().map(|s| s.to_string()).collect()
+    }
+
+    fn read_drop_buffer(stream: BufferRedirect) -> String {
+        let mut out = String::new();
+        let _ = stream.into_inner().read_to_string(&mut out);
+        return out;
     }
 }
