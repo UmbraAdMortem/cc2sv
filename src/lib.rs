@@ -8,7 +8,7 @@
 
 use crate::cli::Cli;
 use anyhow::Result;
-use clap::Parser;
+use clap::{CommandFactory, Parser};
 
 mod cli;
 
@@ -49,9 +49,9 @@ impl CCSV {
             let _ = e.print();
         });
 
-        println!("\nArgs:{:#?}", self.args);
-        println!("Hello! \nThis is Conventional Commits 2 Sematic Verison!");
-        eprintln!("There are no errors!");
+        if self.args.len() <= 1 {
+            eprintln!("{}", Cli::command().render_help().to_string());
+        }
 
         cli?;
         Ok(())
