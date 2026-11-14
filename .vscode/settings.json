@@ -1,4 +1,29 @@
 {
+    // "rust-analyzer.runnables.test.overrideCommand": [
+    //     "cargo",
+    //     "nextest",
+    //     "run",
+    //     "--debugger",
+    //     "\"codelldb-launch --connect 127.0.0.1:12345 --\"",
+    //     "--package",
+    //     "${package}",
+    //     "${target_arg}",
+    //     "${target}",
+    //     "--",
+    //     "${test_name}",
+    //     "${exact}",
+    //     "${include_ignored}"
+    // ],
+    "lldb.rpcServer": {
+        "host": "127.0.0.1",
+        "port": 12345,
+        "token": "secret"
+    },
     "files.autoSave": "afterDelay",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "rust-analyzer.runnables.extraTestBinaryArgs": [
+        "--nocapture",
+        "--test-threads=1"
+    ],
+    // "rust-analyzer.debug.engine": "vadimcn.vscode-lldb"
 }

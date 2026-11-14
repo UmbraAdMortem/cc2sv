@@ -1,70 +1,89 @@
-use std::io::Write;
+use crate::cli::Cli;
+use anyhow::Result;
+use clap::Parser;
 
-pub struct CCSV<W: Write, E: Write> {
+mod cli;
+
+pub struct CCSV {
     args: Vec<String>,
-
-    out: W,
-    err: E,
 }
 
-impl CCSV<std::io::Stdout, std::io::Stderr> {
+impl CCSV {
     pub fn new() -> Self {
-        return CCSV::new_internal(
-            std::env::args().collect(),
-            std::io::stdout(),
-            std::io::stderr(),
-        );
+        return CCSV::new_internal(std::env::args().collect());
     }
 }
 
-impl<W: Write, E: Write> CCSV<W, E> {
-    fn new_internal(args: Vec<String>, out: W, err: E) -> Self {
-        CCSV { args, out, err }
+impl CCSV {
+    fn new_internal(args: Vec<String>) -> Self {
+        CCSV { args }
     }
 
-    pub fn run(&mut self) {
-        let _ = writeln!(self.out, "Args:{:#?}", self.args);
+    pub fn run(&mut self) -> Result<()> {
+        // https://docs.rs/clap_builder/4.6.7/src/clap_builder/derive.rs.html#52-55
+        let cli = Cli::try_parse_from(self.args.iter()).inspect_err(|e| {
+            // https://docs.rs/clap_builder/4.6.7/src/clap_builder/error/mod.rs.html#245
+            let _ = e.print();
+        });
 
-        let _ = writeln!(
-            self.out,
-            "Hello! \nThis is Conventional Commits 2 Sematic Verison!"
-        );
+        println!("\nArgs:{:#?}", self.args);
+        println!("Hello! \nThis is Conventional Commits 2 Sematic Verison!");
+        eprintln!("There are no errors!");
 
-        let _ = writeln!(self.err, "There are no errors!");
+        cli?;
+        Ok(())
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use gag::BufferRedirect;
+    use std::io::Read;
 
     // https://rust-cli.github.io/book/tutorial/testing.html
     #[test]
     fn test_stdout_not_empty() {
-        let mut out: Vec<u8> = Vec::new();
-        let mut err: Vec<u8> = Vec::new();
+        let stdout = BufferRedirect::stdout().unwrap();
+        let stderr = BufferRedirect::stderr().unwrap();
 
-        CCSV::new_internal(args(&[]), &mut out, &mut err).run();
+        assert!(
+            CCSV::new_internal(args(&["target/debug/ccsv"]))
+                .run()
+                .is_ok()
+        );
 
+        let mut out = String::new();
+        let _ = stdout.into_inner().read_to_string(&mut out);
+        println!("out: {}", out);
         assert!(!out.is_empty());
-        println!("{}", String::from_utf8(out).unwrap());
 
+        let mut err = String::new();
+        let _ = stderr.into_inner().read_to_string(&mut err);
+        println!("err: {}", err);
         assert!(!err.is_empty());
-        println!("{}", String::from_utf8(err).unwrap());
     }
 
     #[test]
     fn test_help() {
-        let mut out: Vec<u8> = Vec::new();
-        let mut err: Vec<u8> = Vec::new();
+        let stdout = BufferRedirect::stdout().unwrap();
+        let stderr = BufferRedirect::stderr().unwrap();
 
-        CCSV::new_internal(args(&["--help"]), &mut out, &mut err).run();
+        assert!(
+            CCSV::new_internal(args(&["target/debug/ccsv", "--help"]))
+                .run()
+                .is_err()
+        );
 
-        assert!(!out.is_empty());
-        println!("{}", String::from_utf8(out).unwrap());
+        let mut out = String::new();
+        let _ = stdout.into_inner().read_to_string(&mut out);
+        println!("out: {}", out);
+        assert!(out.starts_with("Usage:"));
 
+        let mut err = String::new();
+        let _ = stderr.into_inner().read_to_string(&mut err);
+        println!("err: {}", err);
         assert!(!err.is_empty());
-        println!("{}", String::from_utf8(err).unwrap());
     }
 
     fn args(args: &[&str]) -> Vec<String> {

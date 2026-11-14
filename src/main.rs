@@ -1,5 +1,6 @@
+use anyhow::Result;
 use ccsv::CCSV;
 
-fn main() {
-    CCSV::new().run();
+fn main() -> Result<()> {
+    CCSV::new().run()
 }

@@ -121,7 +121,8 @@ cargo build
 ### Test
 
 ```sh
-cargo test
+cargo test --no-capture --test-threads=1
+cargo nextest run --no-capture
 ```
 </summary>
 </details>
